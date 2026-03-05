@@ -1,0 +1,24 @@
+{
+  "expo": {
+    "name": "kahvefali",
+    "slug": "kahvefali",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "kahvefali",
+    "userInterfaceStyle": "automatic",
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "edgeToEdgeEnabled": true,
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "output": "single"
+    },
+    "plugins": [
+      "expo-router",
+      "@react-native-community/datetimepicker"
+    ]
+  }
+}

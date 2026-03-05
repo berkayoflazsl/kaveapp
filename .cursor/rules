@@ -1,0 +1,95 @@
+# Kahve Falı Mobil Uygulaması - Cursor Rules
+
+## 🎯 Proje Tanımı
+- **Türü**: Mobil Uygulama (React Native + Expo)
+- **Platform**: iOS & Android (Expo Go / Development Build)
+- **Web**: HAYIR - Sadece mobil uygulama
+- **AI**: OpenAI GPT-4 Vision + Chat API entegrasyonu
+
+## 📱 Mimari
+```
+kahvefali/
+├── backend/          # Node.js + Express + OpenAI API
+│   ├── server.js
+│   └── package.json
+│
+└── kahvefali/        # React Native (Expo)
+    ├── App.js        # Ana uygulama (mobil-only)
+    └── package.json
+```
+
+## ⚠️ ÖNEMLİ KURALLAR
+
+### 1. **Web Desteği YOK**
+- ❌ `react-dom` kullanma
+- ❌ `react-native-web` kullanma
+- ❌ Web-specific API'leri kullanma
+- ✅ Sadece React Native API'leri kullanılacak
+
+### 2. **Mobil-Only Imports**
+```javascript
+// ✅ DOĞRU
+import { View, ScrollView, TouchableOpacity } from 'react-native';
+import * as ImagePicker from 'expo-image-picker';
+import { Camera } from 'expo-camera';
+
+// ❌ YANLIŞ
+import React from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
+```
+
+### 3. **Platform-Specific Kod**
+React Native'de platform-specific gerektiğinde:
+```javascript
+import { Platform } from 'react-native';
+
+if (Platform.OS === 'ios') {
+  // iOS-specific kod
+} else if (Platform.OS === 'android') {
+  // Android-specific kod
+}
+```
+
+### 4. **API URL**
+- Frontend: `http://192.168.1.106:3000` (veya host machine IP)
+- Simulator/Gerçek cihaz: Backend'e bağlantı doğru olmalı
+
+### 5. **Dependencies**
+- ✅ Expo packages (`expo-camera`, `expo-image-picker`, vb.)
+- ✅ React Native packages
+- ❌ Web-only packages (Next.js, React Router, vb.)
+
+### 6. **Assets & Styling**
+- StyleSheet.create() ile inline styles
+- Responsive design için percentages ve Dimensions.get('window')
+- Mobile-first approach
+
+## 🔑 Teknoloji Stack
+- **Frontend**: React Native + Expo
+- **Backend**: Node.js + Express
+- **AI**: OpenAI GPT-4 + Vision API
+- **Storage**: (Henüz yok - gerekirse AsyncStorage)
+- **Database**: (Henüz yok)
+
+## 📝 Dosya Isimlendirme
+- Bileşenler: PascalCase (ör: `FortuneCard.js`)
+- Utilities: camelCase (ör: `imageUtils.js`)
+- Hooks: camelCase başında `use` (ör: `useFortune.js`)
+
+## 🚀 Başlama Komutları
+```bash
+# Backend
+cd backend && npm run dev
+
+# Frontend
+cd kahvefali && npm start
+```
+
+## 🎮 Test
+- Expo Go ile telefonda veya emulator'da test et
+- iOS Simulator problemi varsa Android Emulator kullan
+- Tüm çıktılar mobil uyumlu olmalı
+
+## ✨ Son Not
+**Bu bir MOBIL uygulamadır. Web desteği planlanmamıştır.**
+Tüm geliştirmeler React Native API'lerini kullanmalıdır.
