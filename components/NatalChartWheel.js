@@ -2,7 +2,8 @@ import React, { useMemo } from 'react';
 import { View, Text, StyleSheet, useWindowDimensions } from 'react-native';
 import { WebView } from 'react-native-webview';
 
-const PLANET_NAMES = {
+/** @astrodraw/astrochart 3 — radix gezegen anahtarları; eklenen her anahtar kütüphanede yoksa yok sayılabilir */
+const KAVE_TO_ASTROCHART = {
   sun: 'Sun',
   moon: 'Moon',
   mercury: 'Mercury',
@@ -14,18 +15,20 @@ const PLANET_NAMES = {
   neptune: 'Neptune',
   pluto: 'Pluto',
   northNode: 'NNode',
+  southNode: 'SNode',
+  chiron: 'Chiron',
+  lilith: 'Lilith',
+  partOfFortune: 'Fortune',
+  vertex: 'Vertex',
 };
 
 function toAstroChartData(chart) {
   if (!chart?.planets || !chart?.houses?.cusps) return null;
   const planets = {};
   for (const [key, data] of Object.entries(chart.planets)) {
-    if (key === 'northNode' && data?.longitude != null) {
-      planets.NNode = [data.longitude, data.speed];
-    } else if (data?.longitude != null) {
-      const name = PLANET_NAMES[key];
-      if (name) planets[name] = [data.longitude, data.speed];
-    }
+    if (data?.longitude == null) continue;
+    const ac = KAVE_TO_ASTROCHART[key];
+    if (ac) planets[ac] = [data.longitude, data.speed ?? 0];
   }
   const cusps = (chart.houses.cusps || [])
     .slice(0, 12)
